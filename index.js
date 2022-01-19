@@ -12,7 +12,12 @@ window.addEventListener("resize", () => {
 });
 
 // Setup a Zappar camera instead of one of ThreeJS's cameras
-let camera = new ZapparThree.Camera();
+let camera = new ZapparThree.Camera(
+    {
+    zNear: 0.1,
+    zFar: 1000
+    }
+);
 
 // The Zappar library needs your WebGL context, so pass it
 ZapparThree.glContextSet(renderer.getContext());
@@ -29,7 +34,7 @@ ZapparThree.permissionRequestUI().then(function(granted) {
 
 // Set up our image tracker group
 // Pass our loading manager in to ensure the progress bar works correctly
-let tracker = new ZapparThree.ImageTrackerLoader(manager).load("example-tracking-image.zpt");
+let tracker = new ZapparThree.ImageTrackerLoader(manager).load("AUG-WV0F.zpt");
 let trackerGroup = new ZapparThree.ImageAnchorGroup(camera, tracker);
 scene.add(trackerGroup);
 
@@ -43,9 +48,32 @@ box.position.set(0, 0, 0.5);
 trackerGroup.add(box);
 */
 
-const geometry = new THREE.CircleGeometry( 1, 2 );
-const material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
-const circle = new THREE.Mesh( geometry, material );
+const image_radius = 100;
+const number_of_images = 8;
+const radius = 400;
+const radian_interval = (2.0 * Math.PI) / number_of_images;
+const center_of_wheel = {
+  x: 0,
+  y: 0
+};
+
+let loader = new THREE.TextureLoader();
+let texture = loader.load('AppleLogo.png');
+texture.minFilter = THREE.LinearFilter;
+
+let circle = new THREE.Mesh(
+    new THREE.CircleGeometry( 2, 100),
+    new THREE.MeshBasicMaterial( { map: texture, transparent: true, opacity: 1} )
+    );
+
+    //circle.material.side = THREE.DoubleSide;
+    /*circle.position.set(
+        center_of_wheel.x + Math.cos(radian_interval * 1) * radius,
+        center_of_wheel.y + Math.sin(radian_interval * 1) * radius,
+        0);
+
+*/
+circle.position.set(0,0,.002);
 
 trackerGroup.add(circle);
 
