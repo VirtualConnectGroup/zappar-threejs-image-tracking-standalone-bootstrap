@@ -34,12 +34,23 @@ let trackerGroup = new ZapparThree.ImageAnchorGroup(camera, tracker);
 scene.add(trackerGroup);
 
 // Add some content
+/*
 let box = new THREE.Mesh(
     new THREE.BoxBufferGeometry(),
     new THREE.MeshBasicMaterial()
 );
 box.position.set(0, 0, 0.5);
 trackerGroup.add(box);
+*/
+
+const geometry = new THREE.CircleGeometry( 1, 2 );
+const material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+const circle = new THREE.Mesh( geometry, material );
+
+trackerGroup.add(circle);
+
+
+
 
 // Set up our render loop
 function render() {
