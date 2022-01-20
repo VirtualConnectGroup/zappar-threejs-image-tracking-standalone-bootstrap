@@ -48,35 +48,36 @@ box.position.set(0, 0, 0.5);
 trackerGroup.add(box);
 */
 
-const image_radius = 100;
-const number_of_images = 8;
-const radius = 400;
-const radian_interval = (2.0 * Math.PI) / number_of_images;
-const center_of_wheel = {
-  x: 0,
-  y: 0
-};
 
 let loader = new THREE.TextureLoader();
-let texture = loader.load('AppleLogo.png');
-texture.minFilter = THREE.LinearFilter;
+//loader.crossOrigin = '';
+
+var arr = [
+    'AppleLogo.png',
+    'WordPress.png',
+    'Yoast.png'
+];
+
+let textureToShow = 0;
+let texture = loader.load("Yoast.png");
+
+//texture.minFilter = THREE.LinearFilter;
 
 let circle = new THREE.Mesh(
     new THREE.CircleGeometry( 2, 100),
     new THREE.MeshBasicMaterial( { map: texture, transparent: true, opacity: 1} )
     );
 
-    //circle.material.side = THREE.DoubleSide;
-    /*circle.position.set(
-        center_of_wheel.x + Math.cos(radian_interval * 1) * radius,
-        center_of_wheel.y + Math.sin(radian_interval * 1) * radius,
-        0);
 
-*/
-circle.position.set(0,0,.002);
+
+//Load the texture
+loader.load(arr[textureToShow], function(tex){
+    circle.map = tex;
+    textureToShow++;
+
 
 trackerGroup.add(circle);
-
+});
 
 
 
