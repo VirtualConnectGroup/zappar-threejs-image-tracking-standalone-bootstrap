@@ -52,31 +52,60 @@ trackerGroup.add(box);
 let loader = new THREE.TextureLoader();
 //loader.crossOrigin = '';
 
-var arr = [
+var texturesList = [
     'AppleLogo.png',
     'WordPress.png',
     'Yoast.png'
 ];
 
 let textureToShow = 0;
-let texture = loader.load("Yoast.png");
+
+let randIndex = THREE.Math.randInt(0, texturesList.length -1);
+let randTexture = loader.load(texturesList[randIndex]);
+
+//let texture = loader.load("Yoast.png");
 
 //texture.minFilter = THREE.LinearFilter;
 
 let circle = new THREE.Mesh(
     new THREE.CircleGeometry( 2, 100),
-    new THREE.MeshBasicMaterial( { map: texture, transparent: true, opacity: 1} )
+    new THREE.MeshBasicMaterial( { map: randTexture, transparent: true, opacity: 1} )
     );
 
 
 
 //Load the texture
-loader.load(arr[textureToShow], function(tex){
+loader.load(texturesList[textureToShow], function(tex){
     circle.map = tex;
-    textureToShow++;
+    textureToShow++;;
+    if(textureToShow > texturesList.length-1) {
+        textureToShow = 0;
+        console.log(textureToShow);
+    }
 
 
 trackerGroup.add(circle);
+});
+
+// Click interaction
+var canvas = document.getElementsByTagName("canvas")[0];
+
+canvas.addEventListener("click", function() {
+  
+
+ 
+ loader.load(arr[textureToShow], function(tex) {
+  // Once the texture has loaded
+  // Asign it to the material
+  circle.map = tex;
+  // Update the next texture to show
+  textureToShow++;
+  // Have we got to the end of the textures array
+  if(textureToShow > arr.length-1) {
+   textureToShow = 0;
+  }
+ }); 
+ 
 });
 
 
