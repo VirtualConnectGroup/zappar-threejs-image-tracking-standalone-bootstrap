@@ -34,7 +34,7 @@ ZapparThree.permissionRequestUI().then(function(granted) {
 
 // Set up our image tracker group
 // Pass our loading manager in to ensure the progress bar works correctly
-let tracker = new ZapparThree.ImageTrackerLoader(manager).load("AUG-WV0F.zpt");
+let tracker = new ZapparThree.ImageTrackerLoader(manager).load("CheckMyMood-Target-General.zpt");
 let trackerGroup = new ZapparThree.ImageAnchorGroup(camera, tracker);
 scene.add(trackerGroup);
 
