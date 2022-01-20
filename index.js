@@ -55,7 +55,10 @@ let loader = new THREE.TextureLoader();
 var texturesList = [
     'AppleLogo.png',
     'WordPress.png',
-    'Yoast.png'
+    'Yoast.png',
+    'USFlag.png',
+    'birthday.jpeg'
+
 ];
 
 let textureToShow = 0;
@@ -71,8 +74,6 @@ let circle = new THREE.Mesh(
     new THREE.CircleGeometry( 2, 100),
     new THREE.MeshBasicMaterial( { map: randTexture, transparent: true, opacity: 1} )
     );
-
-
 
 //Load the texture
 loader.load(texturesList[textureToShow], function(tex){
