@@ -35,7 +35,7 @@ ZapparThree.permissionRequestUI().then(function(granted) {
 
 // Set up our image tracker group
 // Pass our loading manager in to ensure the progress bar works correctly
-let tracker = new ZapparThree.ImageTrackerLoader(manager).load("CheckMyMood-Target-General.zpt");
+let tracker = new ZapparThree.ImageTrackerLoader(manager).load("/assets/CheckMyMood-Target-General.zpt");
 let trackerGroup = new ZapparThree.ImageAnchorGroup(camera, tracker);
 scene.add(trackerGroup);
 
@@ -54,11 +54,11 @@ let loader = new THREE.TextureLoader();
 //loader.crossOrigin = '';
 
 var texturesList = [
-    'AppleLogo.png',
-    'WordPress.png',
-    'Yoast.png',
-    'USFlag.png',
-    'birthday.jpeg'
+    'assets/AppleLogo.png',
+    'assets/WordPress.png',
+    'assets/Yoast.png',
+    'assets/USFlag.png',
+    'assetsbirthday.jpeg'
 
 ];
 
@@ -71,12 +71,12 @@ var textureToShow = 0;
     let meshMaterial = new THREE.MeshBasicMaterial( { map: randTexture, transparent: true, opacity: 1} );
     let circle = new THREE.Mesh(circleGeometry,meshMaterial);
 
-    console.log(circle);
+    console.log(meshMaterial);
     
     loader.load(texturesList[textureToShow], function(tex){
         // Once the texture has loaded
         // Asign it to the material
-        circle.map = tex;
+        meshMaterial.map = tex;
         textureToShow++;;
       
 
@@ -110,7 +110,7 @@ function onDocumentMouseDown(event) {
         textureToShow++;;
         if(textureToShow > texturesList.length-1) {
             textureToShow = 0;
-            console.log(textureToShow);
+            //console.log(textureToShow);
         }
     })
     
