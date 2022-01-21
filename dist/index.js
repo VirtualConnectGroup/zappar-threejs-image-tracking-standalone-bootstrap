@@ -62,7 +62,7 @@ var texturesList = [
 
 ];
 
-var textureToShow = 0;
+let textureToShow = 0;
 // Load // 
 
     let randIndex = THREE.Math.randInt(0, texturesList.length -1);
@@ -108,19 +108,21 @@ function onDocumentMouseDown(event) {
     
     // And finally change the color:
 
-
-    
-
-    
-    loader.load(texturesList[textureToShow], function(tex){
+   let i = 0;
+   loader.load(texturesList[textureToShow], function(tex){
+   while (i < 5){
+       i++;
         meshMaterial.map = tex;
         textureToShow++;
         if(textureToShow > texturesList.length-1) {
             textureToShow = 0;
-
         }
-    })
-    
+        //console.log(i);
+        console.log(textureToShow);
+        console.log(meshMaterial);
+    }
+})
+
     /*texturesList.forEach((tex) => {
         console.log(tex);
     });
