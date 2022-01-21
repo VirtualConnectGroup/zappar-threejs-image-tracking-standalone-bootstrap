@@ -35,7 +35,7 @@ ZapparThree.permissionRequestUI().then(function(granted) {
 
 // Set up our image tracker group
 // Pass our loading manager in to ensure the progress bar works correctly
-let tracker = new ZapparThree.ImageTrackerLoader(manager).load("/assets/CheckMyMood-Target-General.zpt");
+let tracker = new ZapparThree.ImageTrackerLoader(manager).load("assets/CheckMyMood-Target-General.zpt");
 let trackerGroup = new ZapparThree.ImageAnchorGroup(camera, tracker);
 scene.add(trackerGroup);
 
@@ -58,7 +58,7 @@ var texturesList = [
     'assets/WordPress.png',
     'assets/Yoast.png',
     'assets/USFlag.png',
-    'assetsbirthday.jpeg'
+    'assets/birthday.jpeg'
 
 ];
 
@@ -85,6 +85,8 @@ var textureToShow = 0;
 
 // Spin Through Images
 
+const loopButton = document.getElementById('loopButton');
+
 var raycaster = new THREE.Raycaster(); // Needed for object intersection
 var mouse = new THREE.Vector2(); //Needed for mouse coordinates
 window.addEventListener('click', onDocumentMouseDown, false);
@@ -105,14 +107,25 @@ function onDocumentMouseDown(event) {
     //console.log(intersects.length > 0 ? "yes" : "no");
     
     // And finally change the color:
+
+
+    
+
+    
     loader.load(texturesList[textureToShow], function(tex){
         meshMaterial.map = tex;
-        textureToShow++;;
+        textureToShow++;
         if(textureToShow > texturesList.length-1) {
             textureToShow = 0;
-            //console.log(textureToShow);
+
         }
     })
+    
+    /*texturesList.forEach((tex) => {
+        console.log(tex);
+    });
+    */
+
     
 
 }

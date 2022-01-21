@@ -12,5 +12,23 @@ canvas {
     transform: translate(-50%, -50%);
   }
 
+  .btn, .btn:visited {
+    width: 200px;
+
+    border-radius: 10px;
+    border: solid 1px #CE3923;
+    background-color: #CE3923;
+
+    padding: 10px;
+}
+.btn:hover {
+    border: solid 1px #EC472F;
+    background-color: #EC472F;
+}
+.btn:visited {
+    border: solid 1px #CE3923;
+    background-color: #CE3923;
+}
+
 
 
