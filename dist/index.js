@@ -49,11 +49,15 @@ box.position.set(0, 0, 0.5);
 trackerGroup.add(box);
 */
 
+textureLists = 0;
+totalResponses = 0;
+responseIndex = 0;
+
 
 let loader = new THREE.TextureLoader();
 //loader.crossOrigin = '';
 
-var texturesList = [
+const texturesList = [
     'assets/AppleLogo.png',
     'assets/WordPress.png',
     'assets/Yoast.png',
@@ -61,6 +65,7 @@ var texturesList = [
     'assets/birthday.jpeg'
 
 ];
+
 
 let textureToShow = 0;
 // Load // 
@@ -77,10 +82,13 @@ let textureToShow = 0;
         // Once the texture has loaded
         // Asign it to the material
         meshMaterial.map = tex;
+        
         textureToShow++;;
       
 
     })
+    console.log(textureToShow);
+    console.log(randTexture);
     trackerGroup.add(circle)
 
 // Spin Through Images
@@ -91,6 +99,8 @@ var raycaster = new THREE.Raycaster(); // Needed for object intersection
 var mouse = new THREE.Vector2(); //Needed for mouse coordinates
 window.addEventListener('click', onDocumentMouseDown, false);
 render();
+
+textureToShow = 0;
 
 function onDocumentMouseDown(event) {
 
@@ -106,30 +116,29 @@ function onDocumentMouseDown(event) {
     // does your cursor intersect the object on click ? 
     //console.log(intersects.length > 0 ? "yes" : "no");
     
-    // And finally change the color:
+    // And finally change the icon:
 
-   let i = 0;
-   loader.load(texturesList[textureToShow], function(tex){
-   while (i < 5){
-       i++;
+  
+    
+     let loader = new THREE.TextureLoader();
+     const sleep = (milliseconds) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+      }
+ 
+         let randIndex = THREE.Math.randInt(0, texturesList.length -1);
+    
+    loader.load(texturesList[(randIndex], function(tex){
         meshMaterial.map = tex;
-        textureToShow++;
-        if(textureToShow > texturesList.length-1) {
-            textureToShow = 0;
-        }
-        //console.log(i);
-        console.log(textureToShow);
-        console.log(meshMaterial);
-    }
-})
 
-    /*texturesList.forEach((tex) => {
-        console.log(tex);
-    });
-    */
+        sleep(1000);
+    
+    })
+    //textureToShow++;
+    console.log(meshMaterial.map.image);
+    //console.log(texturesList.length);
+    console.log(randIndex);
 
     
-
 }
     
 
