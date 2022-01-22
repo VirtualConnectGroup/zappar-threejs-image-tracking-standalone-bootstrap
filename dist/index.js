@@ -116,21 +116,23 @@ function onDocumentMouseDown(event) {
     // does your cursor intersect the object on click ? 
     //console.log(intersects.length > 0 ? "yes" : "no");
     
-    // And finally change the icon:
+    // And finally change the color:
 
   
     
      let loader = new THREE.TextureLoader();
-     const sleep = (milliseconds) => {
-        return new Promise(resolve => setTimeout(resolve, milliseconds))
-      }
+    
  
          let randIndex = THREE.Math.randInt(0, texturesList.length -1);
-    
-    loader.load(texturesList[(randIndex], function(tex){
+        //textureToShow++;
+    loader.load(texturesList[randIndex], function(tex){
         meshMaterial.map = tex;
+        //textureToShow++;
+        /*if(textureToShow > texturesList.length-1) {
+            textureToShow = 0;
 
-        sleep(1000);
+        }*/
+        //sleep(1000);
     
     })
     //textureToShow++;
