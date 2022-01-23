@@ -86,9 +86,11 @@ let textureToShow = 0;
 
     let randIndex = THREE.Math.randInt(0, texturesList.length -1);
     let randTexture = loader.load(texturesList[randIndex]);
-    let circleGeometry = new THREE.CircleGeometry( 1, 100);
+    let circleGeometry = new THREE.CircleGeometry( 1.5, 100);
     let meshMaterial = new THREE.MeshBasicMaterial( { map: randTexture, transparent: true, opacity: 1} );
     let circle = new THREE.Mesh(circleGeometry,meshMaterial);
+
+    
     objects.push(circle);
     console.log(meshMaterial);
     
@@ -150,12 +152,8 @@ function onMouseDown(event) {
        });
     
    
-    console.log("MouseDown");
     }
 
-    // append canvas to dom element
-   
-    //document.getElementById("container");
 
 
   
@@ -173,92 +171,7 @@ function onMouseDown(event) {
   
   }
 
-  
-    // x
-//     const mouse3D = new THREE.Vector3( (event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerheight) * 2 - 1, 0.5 )
-//     const raycaster = new THREE.Raycaster()
-//     raycaster.setFromCamera(mouse3D, camera)
-//     const intersects = raycaster.intersectObjects(objects);
-// if(intersects.length > 0){
-//       intersects[0].object.material.color.setHex( Math.random() * 0xffffff )
-//     }
-  
-
-    // // Welcome to the exciting world of raycasting !
-    // // First let's get some mouse coordinates:
-    // mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    // mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    // // This is basically converting 2d coordinates to 3d Space:
-    // raycaster.setFromCamera(mouse, camera);
-    // // And checking if it intersects with an array object
-    // var intersects = raycaster.intersectObjects([circle]);
     
-    // // does your cursor intersect the object on click ? 
-    // //console.log(intersects.length > 0 ? "yes" : "no");
-    
-    // // And finally change the color:
-
-  
-    
-    
- 
- 
-    
-    
-   
-
-    
-
-/////// Add Video Recorder
-/*
-const canvas = document.querySelector('canvas');
-
-const recorder = ZapparVideoRecorder.createCanvasVideoRecorder(canvas, {
-  quality: 25,
-  speed: 10,
-  halfSample: true,
-});
-
-recordButton.addEventListener('click', () => {
-  recorder.start();
-});
-
-stopRecordButton.addEventListener('click', () => {
-  recorder.stop();
-});
-
-recorder.onComplete.bind(async (res) => {
-  ZapparSharing({
-    data: await res.asDataURL(),
-  });
-
-  ZapparSharing({
-    data: url,
-    fileNamePrepend: 'Zappar', // The name of  the file.
-    shareTitle: 'Hello World!', // The title for the social share.
-    shareText: 'Hello World!', // The body text for the social share.
-    shareUrl: 'www.zappar.com', // The url for the social share.
-    hideShareButton: true, // Hide the share button.
-    onSave: () => {
-      console.log('Image was saved');
-    },
-    onShare: () => {
-      console.log('Share button was pressed');
-    },
-    onClose: () => {
-      console.log('Dialog was closed');
-    },
-  });
-  
-
-});
-*/
-
-
-
-
-
-
 // Set up our render loop
 function render() {
     requestAnimationFrame(render);
@@ -267,7 +180,27 @@ function render() {
     renderer.render(scene, camera);
 
 
-}
+}  
 
 requestAnimationFrame(render);
 
+/*const recorder = ZapparVideoRecorder.createCanvasVideoRecorder(canvas, {
+    quality: 25,
+    speed: 10,
+    halfSample: true,
+  });
+  
+  recordButton.addEventListener('click', () => {
+    recorder.start();
+  });
+  
+  stopRecordButton.addEventListener('click', () => {
+    recorder.stop();
+  });
+  
+  recorder.onComplete.bind(async (res) => {
+    ZapparSharing({
+      data: await res.asDataURL(),
+    });
+  });
+  */
