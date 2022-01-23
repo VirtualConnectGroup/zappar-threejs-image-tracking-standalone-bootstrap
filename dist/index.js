@@ -59,15 +59,18 @@ let trackerGroup = new ZapparThree.ImageAnchorGroup(camera, tracker);
 scene.add(trackerGroup);
 
 
-textureLists = 0;
+textureList = 0;
 totalResponses = 0;
 responseIndex = 0;
 
 let loader = new THREE.TextureLoader();
 //loader.crossOrigin = '';
 
+const launchImage = [
+    "assets/7GHV-Valentines_Button.png"
+];
+
 const texturesList = [
-    "assets/7GHV-Valentines_Button.png",
     'assets/AppleLogo.png',
     'assets/WordPress.png',
     'assets/Yoast.png',
@@ -80,6 +83,7 @@ let objects = [];
 let textureToShow = 0;
 // Load 
 
+
     let randIndex = THREE.Math.randInt(0, texturesList.length -1);
     let randTexture = loader.load(texturesList[randIndex]);
     let circleGeometry = new THREE.CircleGeometry( 2, 100);
@@ -88,7 +92,7 @@ let textureToShow = 0;
     objects.push(circle);
     console.log(meshMaterial);
     
-    loader.load(texturesList[0], function(tex){
+    loader.load(launchImage[0], function(tex){
         // Once the texture has loaded
         // Asign it to the material
         meshMaterial.map = tex;
@@ -107,27 +111,46 @@ let textureToShow = 0;
 const raycaster = new THREE.Raycaster(); // Needed for object intersection
 
 //3d mouse
+var canvas = document.getElementsByTagName("canvas")[0];
 
-document.addEventListener("mousedown", onMouseDown, false);
+
+canvas.addEventListener("click", onMouseDown, false);
+    console.log(randIndex);
 //push everything into an object for raycasting
 
 
 function onMouseDown(event) {
-    event.preventDefault();
+    event.preventDefault;
 
-    //x
+    let rand = THREE.Math.randInt(0, texturesList.length -1);
+    console.log(rand);
+
     const mouse3D = new THREE.Vector3(
         (event.clientX / window.innerWidth) * 2 - 1,
         -(event.clientY / window.innerheight) * 2 - 1,
         0.5
       );
+      const raycaster = new THREE.Raycaster();
       raycaster.setFromCamera(mouse3D, camera);
       const intersects = raycaster.intersectObjects(objects);
-      if (intersects.length > 0) {
-        intersects[0].object.material.color.setHex(Math.random() * 0xffffff);
-        update();
-      }
 
+      console.log(intersects);
+  
+    loader.load(texturesList[rand], function(tex) {
+        // Once the texture has loaded
+        // Asign it to the material
+        meshMaterial.map = tex;
+        // Update the next texture to show
+        //textureToShow++;
+        // Have we got to the end of the textures array
+        // if(textureToShow > texturesList.length-1) {
+        //  textureToShow = 0;
+        // }
+
+       });
+    
+   
+    console.log("MouseDown");
     }
 
     // append canvas to dom element
