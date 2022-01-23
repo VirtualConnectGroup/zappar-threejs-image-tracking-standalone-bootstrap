@@ -86,7 +86,7 @@ let textureToShow = 0;
 
     let randIndex = THREE.Math.randInt(0, texturesList.length -1);
     let randTexture = loader.load(texturesList[randIndex]);
-    let circleGeometry = new THREE.CircleGeometry( 2, 100);
+    let circleGeometry = new THREE.CircleGeometry( 1, 100);
     let meshMaterial = new THREE.MeshBasicMaterial( { map: randTexture, transparent: true, opacity: 1} );
     let circle = new THREE.Mesh(circleGeometry,meshMaterial);
     objects.push(circle);
