@@ -77,7 +77,6 @@ const texturesList = [
     'assets/Content/7GHV-Valentines_Coupons_4.png',
     'assets/Content/7GHV-Valentines_Coupons_5.png',
     'assets/Content/7GHV-Valentines_Coupons_6.png',
-    'assets/Content/7GHV-Valentines_Coupons_7.png',
     'assets/Content/7GHV-Valentines_Coupons_8.png',
     'assets/Content/7GHV-Valentines_Coupons_9.png',
     'assets/Content/7GHV-Valentines_Coupons_10.png',
@@ -94,7 +93,9 @@ const texturesList = [
     'assets/Content/7GHV-Valentines_Coupons_21.png',
     'assets/Content/7GHV-Valentines_Coupons_22.png',
     'assets/Content/7GHV-Valentines_Coupons_23.png',
-    'assets/Content/7GHV-Valentines_Coupons_24.png'
+    'assets/Content/7GHV-Valentines_Coupons_24.png',
+    'assets/Content/7GHV-Valentines_Coupons_25.png',
+    'assets/Content/7GHV-Valentines_Coupons_26.png'
 
 ];
 
@@ -157,6 +158,10 @@ function onMouseDown(event) {
 
       console.log(intersects);
   
+
+      //Spin//
+      var rotateCards = function() {
+   
     loader.load(texturesList[rand], function(tex) {
         // Once the texture has loaded
         // Asign it to the material
@@ -169,133 +174,61 @@ function onMouseDown(event) {
         // }
 
        });
+      }
+
+    rotateCards();
     
-   
     }
 
 
 
-  
-  // update loop
-    function update() {
 
-  
-    //rotations go here
-      //textureToShow++;
+// // Get a reference to the 'Snapshot' button so we can attach a 'click' listener
+// const placeButton = document.getElementById('instructions') || document.createElement('div');
 
-    (texturesList[randIndex], function(tex){
-    meshMaterial.map = tex;
-    meshMaterial.needsUpdate = true;
-   
-    })
-  
-  }
+// function initRecorder() {
+//   const canvas = document.querySelector('canvas') || document.createElement('canvas');
 
-// Get a reference to the 'Snapshot' button so we can attach a 'click' listener
-const placeButton = document.getElementById('instructions') || document.createElement('div');
-
-async function initRecorder() {
-  const canvas = document.querySelector('canvas') || document.createElement('canvas');
-
-  const recorder = await ZapparVideoRecorder.createCanvasVideoRecorder(canvas);
-  let recording = false;
-
-  // When we start recording update text
-  recorder.onStart.bind(() => {
-    recording = true;
-    placeButton.innerText = 'TAP TO STOP RECORDING';
-  });
-
-  // When stop recording update text, and prompt a social share dialog.
-  recorder.onComplete.bind(async (result) => {
-    placeButton.innerText = 'TAP TO START RECORDING';
-
-    ZapparSharing({
-      data: await res.asDataURL(),
-    });
-    recording = false;
-  });
-
-  // Toggle between recording
-  placeButton.addEventListener('click', async () => {
-    if (recording) {
-      recorder.stop();
-    } else {
-      recorder.start();
-    }
-  });
-}
-
-initRecorder();
-
-
-
-//   // Get a reference to the 'Snapshot' button so we can attach a 'click' listener
-//  const placeButton = document.getElementById('snapshot') || document.createElement('div');
-
-//  ZapparVideoRecorder.createCanvasVideoRecorder(canvas, {
-//   maxFrameRate: "30",
-//   speed: "10",
-//   quality:"25"
-
-//  }).then(recorder => {
-
-//   // Toggle between recording
-//   placeButton.addEventListener('click', async () => {
-//     if (recording) {
-//       recorder.stop();
-//       console.log("Record-stop");
-//     } else {
-//       recorder.start();
-//       console.log("Recorder-Start");
-//         }
+//   const recorder = ZapparVideoRecorder.createCanvasVideoRecorder(canvas, {
+//     quality: 25,
+//     speed: 10,
+//     halfSample: true,
+//     recording: false
 //   });
+ 
+
 //   // When we start recording update text
-//   recorder.onStart.bind(() => {
+//   recorder.onStart = function() {
 //     recording = true;
 //     placeButton.innerText = 'TAP TO STOP RECORDING';
-//   });
+//   };
 
-//     // When stop recording update text, and prompt a social share dialog.
-//   recorder.onComplete.bind(async (result) => {
+//   // When stop recording update text, and prompt a social share dialog.
+//   recorder.onComplete = function() {
 //     placeButton.innerText = 'TAP TO START RECORDING';
-//     // Use the raw ArrayBuffer:
-//     // Use the raw ArrayBuffer:
-//     result.arrayBuffer
 
-//     // Or a blob containing the same data:
-//     result.blob
+//      ZapparSharing({
+//        data: await result.asDataURL(),
+//      });
+//      recording = false;
+//   };
 
-//     // Or get a data URL:
-//     result.asDataURL().then(dataurl => {
-//       // Use dataurl
-//     });
-//     });
- 
-//  });
-
-
-
-
-
-// //     WebGlSnapshot({
-// //       data: await result.asDataURL(),
-// //     });
-
-// //     recording = false;
-// //   });
-
-//   // Toggle between recording
-//   placeButton.addEventListener('click', async () => {
+//    // Toggle between recording
+//    placeButton.addEventListener('click', async () => {
 //     if (recording) {
 //       recorder.stop();
 //     } else {
 //       recorder.start();
 //     }
 //   });
-// //}
 
-// // initRecorder();
+  
+// }
+
+// initRecorder();
+
+
+
     
 // Set up our render loop
 function render() {
@@ -309,23 +242,3 @@ function render() {
 
 requestAnimationFrame(render);
 
-/*const recorder = ZapparVideoRecorder.createCanvasVideoRecorder(canvas, {
-    quality: 25,
-    speed: 10,
-    halfSample: true,
-  });
-  
-  recordButton.addEventListener('click', () => {
-    recorder.start();
-  });
-  
-  stopRecordButton.addEventListener('click', () => {
-    recorder.stop();
-  });
-  
-  recorder.onComplete.bind(async (res) => {
-    ZapparSharing({
-      data: await res.asDataURL(),
-    });
-  });
-  */
