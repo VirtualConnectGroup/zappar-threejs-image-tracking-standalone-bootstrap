@@ -67,15 +67,34 @@ let loader = new THREE.TextureLoader();
 //loader.crossOrigin = '';
 
 const launchImage = [
-    "assets/7GHV-Valentines_Button.png"
+    "assets/7GHV-Valentines_Target_transparent.png"
 ];
 
 const texturesList = [
-    'assets/AppleLogo.png',
-    'assets/WordPress.png',
-    'assets/Yoast.png',
-    'assets/USFlag.png',
-    'assets/birthday.jpeg'
+    'assets/Content/7GHV-Valentines_Coupons_1.png',
+    'assets/Content/7GHV-Valentines_Coupons_2.png',
+    'assets/Content/7GHV-Valentines_Coupons_3.png',
+    'assets/Content/7GHV-Valentines_Coupons_4.png',
+    'assets/Content/7GHV-Valentines_Coupons_5.png',
+    'assets/Content/7GHV-Valentines_Coupons_6.png',
+    'assets/Content/7GHV-Valentines_Coupons_7.png',
+    'assets/Content/7GHV-Valentines_Coupons_8.png',
+    'assets/Content/7GHV-Valentines_Coupons_9.png',
+    'assets/Content/7GHV-Valentines_Coupons_10.png',
+    'assets/Content/7GHV-Valentines_Coupons_11.png',
+    'assets/Content/7GHV-Valentines_Coupons_12.png',
+    'assets/Content/7GHV-Valentines_Coupons_13.png',
+    'assets/Content/7GHV-Valentines_Coupons_14.png',
+    'assets/Content/7GHV-Valentines_Coupons_15.png',
+    'assets/Content/7GHV-Valentines_Coupons_16.png',
+    'assets/Content/7GHV-Valentines_Coupons_17.png',
+    'assets/Content/7GHV-Valentines_Coupons_18.png',
+    'assets/Content/7GHV-Valentines_Coupons_19.png',
+    'assets/Content/7GHV-Valentines_Coupons_20.png',
+    'assets/Content/7GHV-Valentines_Coupons_21.png',
+    'assets/Content/7GHV-Valentines_Coupons_22.png',
+    'assets/Content/7GHV-Valentines_Coupons_23.png',
+    'assets/Content/7GHV-Valentines_Coupons_24.png'
 
 ];
 
@@ -86,7 +105,7 @@ let textureToShow = 0;
 
     let randIndex = THREE.Math.randInt(0, texturesList.length -1);
     let randTexture = loader.load(texturesList[randIndex]);
-    let circleGeometry = new THREE.CircleGeometry( 1.5, 100);
+    let circleGeometry = new THREE.CircleGeometry( 1, 100);
     let meshMaterial = new THREE.MeshBasicMaterial( { map: randTexture, transparent: true, opacity: 1} );
     let circle = new THREE.Mesh(circleGeometry,meshMaterial);
 
@@ -163,6 +182,7 @@ function onMouseDown(event) {
   
     //rotations go here
       //textureToShow++;
+
     (texturesList[randIndex], function(tex){
     meshMaterial.map = tex;
     meshMaterial.needsUpdate = true;
@@ -171,6 +191,111 @@ function onMouseDown(event) {
   
   }
 
+// Get a reference to the 'Snapshot' button so we can attach a 'click' listener
+const placeButton = document.getElementById('instructions') || document.createElement('div');
+
+async function initRecorder() {
+  const canvas = document.querySelector('canvas') || document.createElement('canvas');
+
+  const recorder = await ZapparVideoRecorder.createCanvasVideoRecorder(canvas);
+  let recording = false;
+
+  // When we start recording update text
+  recorder.onStart.bind(() => {
+    recording = true;
+    placeButton.innerText = 'TAP TO STOP RECORDING';
+  });
+
+  // When stop recording update text, and prompt a social share dialog.
+  recorder.onComplete.bind(async (result) => {
+    placeButton.innerText = 'TAP TO START RECORDING';
+
+    ZapparSharing({
+      data: await res.asDataURL(),
+    });
+    recording = false;
+  });
+
+  // Toggle between recording
+  placeButton.addEventListener('click', async () => {
+    if (recording) {
+      recorder.stop();
+    } else {
+      recorder.start();
+    }
+  });
+}
+
+initRecorder();
+
+
+
+//   // Get a reference to the 'Snapshot' button so we can attach a 'click' listener
+//  const placeButton = document.getElementById('snapshot') || document.createElement('div');
+
+//  ZapparVideoRecorder.createCanvasVideoRecorder(canvas, {
+//   maxFrameRate: "30",
+//   speed: "10",
+//   quality:"25"
+
+//  }).then(recorder => {
+
+//   // Toggle between recording
+//   placeButton.addEventListener('click', async () => {
+//     if (recording) {
+//       recorder.stop();
+//       console.log("Record-stop");
+//     } else {
+//       recorder.start();
+//       console.log("Recorder-Start");
+//         }
+//   });
+//   // When we start recording update text
+//   recorder.onStart.bind(() => {
+//     recording = true;
+//     placeButton.innerText = 'TAP TO STOP RECORDING';
+//   });
+
+//     // When stop recording update text, and prompt a social share dialog.
+//   recorder.onComplete.bind(async (result) => {
+//     placeButton.innerText = 'TAP TO START RECORDING';
+//     // Use the raw ArrayBuffer:
+//     // Use the raw ArrayBuffer:
+//     result.arrayBuffer
+
+//     // Or a blob containing the same data:
+//     result.blob
+
+//     // Or get a data URL:
+//     result.asDataURL().then(dataurl => {
+//       // Use dataurl
+//     });
+//     });
+ 
+//  });
+
+
+
+
+
+// //     WebGlSnapshot({
+// //       data: await result.asDataURL(),
+// //     });
+
+// //     recording = false;
+// //   });
+
+//   // Toggle between recording
+//   placeButton.addEventListener('click', async () => {
+//     if (recording) {
+//       recorder.stop();
+//     } else {
+//       recorder.start();
+//     }
+//   });
+// //}
+
+// // initRecorder();
     
 // Set up our render loop
 function render() {
