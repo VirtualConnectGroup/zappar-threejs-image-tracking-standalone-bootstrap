@@ -38,7 +38,7 @@ body {
     user-select: none;
 }
 
-#instructions {
+#record {
     position: fixed;
     bottom: 20px;
     left: 50%;
@@ -53,4 +53,23 @@ body {
     box-sizing: border-box;
     font-family: sans-serif;
     text-transform: uppercase;
+    z-index:1000;
+}
+
+#stopRecord {
+    position: fixed;
+    bottom: 20px;
+    left: 30%;
+    right: 0px;
+    border-radius: 15px;
+    background: black;
+    color: white;
+    width: 200px;
+    margin-left: -100px;
+    text-align: center;
+    padding: 15px;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    z-index:1000;
 }

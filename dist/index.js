@@ -77,6 +77,7 @@ const texturesList = [
     'assets/Content/7GHV-Valentines_Coupons_4.png',
     'assets/Content/7GHV-Valentines_Coupons_5.png',
     'assets/Content/7GHV-Valentines_Coupons_6.png',
+    'assets/Content/7GHV-Valentines_Coupons_7.png',
     'assets/Content/7GHV-Valentines_Coupons_8.png',
     'assets/Content/7GHV-Valentines_Coupons_9.png',
     'assets/Content/7GHV-Valentines_Coupons_10.png',
@@ -140,27 +141,10 @@ canvas.addEventListener("click", onMouseDown, false);
     console.log(randIndex);
 //push everything into an object for raycasting
 
-
-function onMouseDown(event) {
-    event.preventDefault;
-
+//Spin//
+const rotateCards = function() {
     let rand = THREE.Math.randInt(0, texturesList.length -1);
     console.log(rand);
-
-    const mouse3D = new THREE.Vector3(
-        (event.clientX / window.innerWidth) * 2 - 1,
-        -(event.clientY / window.innerheight) * 2 - 1,
-        0.5
-      );
-      const raycaster = new THREE.Raycaster();
-      raycaster.setFromCamera(mouse3D, camera);
-      const intersects = raycaster.intersectObjects(objects);
-
-      console.log(intersects);
-  
-
-      //Spin//
-      var rotateCards = function() {
    
     loader.load(texturesList[rand], function(tex) {
         // Once the texture has loaded
@@ -174,58 +158,94 @@ function onMouseDown(event) {
         // }
 
        });
+    }
+function onMouseDown(event) {
+    event.preventDefault;
+
+
+
+    const mouse3D = new THREE.Vector3(
+        (event.clientX / window.innerWidth) * 2 - 1,
+        -(event.clientY / window.innerheight) * 2 - 1,
+        0.5
+      );
+      const raycaster = new THREE.Raycaster();
+      raycaster.setFromCamera(mouse3D, camera);
+      const intersects = raycaster.intersectObjects(objects);
+
+      //console.log(intersects);
+  
+                  rotateCards();
+      
+      
       }
 
-    rotateCards();
+       // rotateCards();
+//  var futureTime = new Date();
+//   futureTime.setSeconds(futureTime.getSeconds() + 10);
+//   var currentTime = new Date();
+//   currentTime.setSeconds(currentTime.getSeconds());
+
+//   console.log(futureTime.getSeconds);
+//   console.log(currentTime.getSeconds);
+
+//   while(false||currentTime>futureTime) {
+//    rotateCards();
+//    render();
+//         }
+//  rotateCards();
     
-    }
+//    }
 
 
-
+//****************ADD SEPARATE START AND STOP RECORD BUTTONS */
 
 // // Get a reference to the 'Snapshot' button so we can attach a 'click' listener
-// const placeButton = document.getElementById('instructions') || document.createElement('div');
+ let recordButton = document.getElementById('record') || document.createElement('div');
+ let stopButton = document.getElementById('stopRecord') || document.createElement('div');
+function initRecorder() {
+  const canvas = document.querySelector('canvas') || document.createElement('canvas');
 
-// function initRecorder() {
-//   const canvas = document.querySelector('canvas') || document.createElement('canvas');
+  let recorder = ZapparVideoRecorder.createCanvasVideoRecorder(canvas, {
+    quality: 25,
+    speed: 10,
+    halfSample: true,
+    recording: false
+  }).then(recorder => {
 
-//   const recorder = ZapparVideoRecorder.createCanvasVideoRecorder(canvas, {
-//     quality: 25,
-//     speed: 10,
-//     halfSample: true,
-//     recording: false
-//   });
- 
+     // Toggle between recording
+   recordButton.addEventListener('click', async () => {
+    if (recording) {
+      recorder.stop();
+      console.log("Record Button Pressed");
+    } else {
+      recorder.start();
+      recording = true;
+      recorder.onStart.bind()) => {
 
-//   // When we start recording update text
-//   recorder.onStart = function() {
-//     recording = true;
-//     placeButton.innerText = 'TAP TO STOP RECORDING';
-//   };
+      }
+    }
+}
+  });
 
-//   // When stop recording update text, and prompt a social share dialog.
-//   recorder.onComplete = function() {
-//     placeButton.innerText = 'TAP TO START RECORDING';
+      // When we start recording update text
+    stopButton.addEventListener('click', async () => {
+        recorder.stop()
+        console.log("Recording Stop Button");
+    
 
-//      ZapparSharing({
-//        data: await result.asDataURL(),
-//      });
-//      recording = false;
-//   };
+    }
 
-//    // Toggle between recording
-//    placeButton.addEventListener('click', async () => {
-//     if (recording) {
-//       recorder.stop();
-//     } else {
-//       recorder.start();
-//     }
-//   });
-
+    recorder.onComplete.bind(async (res) => {
+        ZapparSharing({
+        data: await res.asDataURL(),
+        });
+    }
   
-// }
 
-// initRecorder();
+
+  }
+initRecorder();
 
 
 
