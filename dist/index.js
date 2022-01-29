@@ -115,6 +115,8 @@ let textureToShow = 0;
     objects.push(circle);
     console.log(meshMaterial);
     
+
+    //****Load First Image */
     loader.load(launchImage[0], function(tex){
         // Once the texture has loaded
         // Asign it to the material
@@ -142,6 +144,9 @@ canvas.addEventListener("click", onMouseDown, false);
 //push everything into an object for raycasting
 
 //Spin//
+
+
+
 const rotateCards = function() {
     let rand = THREE.Math.randInt(0, texturesList.length -1);
     console.log(rand);
@@ -158,7 +163,10 @@ const rotateCards = function() {
         // }
 
        });
+
     }
+
+
 function onMouseDown(event) {
     event.preventDefault;
 
@@ -174,78 +182,71 @@ function onMouseDown(event) {
       const intersects = raycaster.intersectObjects(objects);
 
       //console.log(intersects);
-  
-                  rotateCards();
+      var count = 0;
+      var start = Date.now();
+      var inter = setInterval(loopCards, 100);
       
+
+
+
+      const loopCards = function() {
+        count += 1;
+        if (Date.now() - start >= 100) {
+          //clearInterval(inter);
+          console.log(count, 'loops in 5 seconds');
+          rotateCards();
       
-      }
+        }
 
-       // rotateCards();
-//  var futureTime = new Date();
-//   futureTime.setSeconds(futureTime.getSeconds() + 10);
-//   var currentTime = new Date();
-//   currentTime.setSeconds(currentTime.getSeconds());
+        }
 
-//   console.log(futureTime.getSeconds);
-//   console.log(currentTime.getSeconds);
+}
 
-//   while(false||currentTime>futureTime) {
-//    rotateCards();
-//    render();
-//         }
-//  rotateCards();
-    
-//    }
-
-
-//****************ADD SEPARATE START AND STOP RECORD BUTTONS */
+      
 
 // // Get a reference to the 'Snapshot' button so we can attach a 'click' listener
- let recordButton = document.getElementById('record') || document.createElement('div');
- let stopButton = document.getElementById('stopRecord') || document.createElement('div');
-function initRecorder() {
-  const canvas = document.querySelector('canvas') || document.createElement('canvas');
+// const placeButton = document.getElementById('instructions') || document.createElement('div');
 
-  let recorder = ZapparVideoRecorder.createCanvasVideoRecorder(canvas, {
-    quality: 25,
-    speed: 10,
-    halfSample: true,
-    recording: false
-  }).then(recorder => {
+// function initRecorder() {
+//   const canvas = document.querySelector('canvas') || document.createElement('canvas');
 
-     // Toggle between recording
-   recordButton.addEventListener('click', async () => {
-    if (recording) {
-      recorder.stop();
-      console.log("Record Button Pressed");
-    } else {
-      recorder.start();
-      recording = true;
-      recorder.onStart.bind()) => {
+//   const recorder = ZapparVideoRecorder.createCanvasVideoRecorder(canvas, {
+//     quality: 25,
+//     speed: 10,
+//     halfSample: true,
+//     recording: false
+//   });
+ 
 
-      }
-    }
-}
-  });
+//   // When we start recording update text
+//   recorder.onStart = function() {
+//     recording = true;
+//     placeButton.innerText = 'TAP TO STOP RECORDING';
+//   };
 
-      // When we start recording update text
-    stopButton.addEventListener('click', async () => {
-        recorder.stop()
-        console.log("Recording Stop Button");
-    
+//   // When stop recording update text, and prompt a social share dialog.
+//   recorder.onComplete = function() {
+//     placeButton.innerText = 'TAP TO START RECORDING';
 
-    }
+//      ZapparSharing({
+//        data: await result.asDataURL(),
+//      });
+//      recording = false;
+//   };
 
-    recorder.onComplete.bind(async (res) => {
-        ZapparSharing({
-        data: await res.asDataURL(),
-        });
-    }
+//    // Toggle between recording
+//    placeButton.addEventListener('click', async () => {
+//     if (recording) {
+//       recorder.stop();
+//     } else {
+//       recorder.start();
+//     }
+//   });
+
   
+// }
 
-
-  }
-initRecorder();
+// initRecorder();
 
 
 
